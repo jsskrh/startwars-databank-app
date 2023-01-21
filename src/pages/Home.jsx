@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -31,7 +32,16 @@ const Home = () => {
     <div className={style.container}>
       <ul>
         {characters.map((character) => (
-          <li>{character.name}</li>
+          <li>
+            <Link
+              to={`/characters/${character.name
+                .toLowerCase()
+                .replace(/\s/g, "-")}`}
+              state={character}
+            >
+              {character.name}
+            </Link>
+          </li>
         ))}
       </ul>
       <div>

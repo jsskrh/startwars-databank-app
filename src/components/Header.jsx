@@ -5,6 +5,7 @@ import {
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const style = {
   container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a]`,
@@ -40,16 +41,18 @@ const Header = () => {
           <Bars3Icon className={style.heroIcon} />
         </div> */}
         <div className={style.logoContainer}>
-          <img
-            src={assets.swLogo}
-            alt="Logo"
-            className={`${style.logo} ${style.mobile}`}
-          />
-          <img
-            src={assets.swLogoStacked}
-            alt="Logo"
-            className={`${style.logo} ${style.desktop}`}
-          />
+          <Link to={`/`}>
+            <img
+              src={assets.swLogo}
+              alt="Logo"
+              className={`${style.logo} ${style.mobile}`}
+            />
+            <img
+              src={assets.swLogoStacked}
+              alt="Logo"
+              className={`${style.logo} ${style.desktop}`}
+            />
+          </Link>
         </div>
         <div
           className={`${style.paddedButton} bg-[#2f3640] relative flex justify-center`}

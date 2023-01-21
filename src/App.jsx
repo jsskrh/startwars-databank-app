@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Starfield from "./components/Starfield";
+import Character from "./pages/Character";
 
 const style = {
   app: `flex flex-col min-h-screen justify-between`,
@@ -16,6 +17,7 @@ function App() {
       <Starfield />
       <div className={style.main}>
         <Routes>
+          <Route path="/characters/*" element={<Character />} />
           <Route path="/*" element={<Home />} />
         </Routes>
       </div>
