@@ -4,12 +4,17 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Starfield from "./components/Starfield";
 
+const style = {
+  app: `flex flex-col min-h-screen justify-between`,
+  main: `my-auto mt-0`,
+};
+
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
       <Header />
       <Starfield />
-      <div className="main flex min-h-screen h-full">
+      <div className={style.main}>
         <Routes>
           <Route path="/*" element={<Home />} />
         </Routes>

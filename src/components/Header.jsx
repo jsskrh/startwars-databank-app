@@ -28,7 +28,8 @@ const style = {
 };
 
 const Header = () => {
-  const [showSearch, setShowSearch] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <div className={style.container}>
       <div className={style.containerInner}>
