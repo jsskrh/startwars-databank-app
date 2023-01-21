@@ -1,43 +1,35 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Store } from "../utils/Store";
-import RemoveFav from "../components/RemoveFav";
 
 const style = { container: `container text-white w-full mx-auto` };
 
-const Home = () => {
+const Search = ({ query }) => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageTotal, setPageTotal] = useState();
 
-  const { state } = useContext(Store);
-  const {
-    starwars: { favourites },
-  } = state;
-
-  const fetchCharacters = async () => {
-    try {
+  useEffect(() => {
+    async function fetchData() {
       const response = await fetch(
-        `https://swapi.dev/api/people/?page=${currentPage}`
+        `https://swapi.dev/api/people/?search=${query}&page=${currentPage}`
       );
       const charactersData = await response.json();
+      setCharacters(charactersData.results);
       console.log(charactersData);
       setPageTotal(charactersData.count / charactersData.results.length);
-      setCharacters(charactersData.results);
-    } catch (error) {
-      console.log(error);
     }
-  };
-
-  useEffect(() => {
-    fetchCharacters();
-  }, [currentPage]);
+    if (query) {
+      fetchData();
+    } else {
+      setCharacters([]);
+    }
+  }, [query, currentPage]);
 
   return (
     <div className={style.container}>
       <ul>
         <li>
-          <h2>Characters</h2>
+          <h2>Search Results</h2>
         </li>
         {characters.map((character) => (
           <li>
@@ -67,22 +59,8 @@ const Home = () => {
           Next
         </button>
       </div>
-      <div>
-        <h2>Favourites</h2>
-        {favourites.map((char) => (
-          <li>
-            <Link
-              to={`/characters/${char.name.toLowerCase().replace(/\s/g, "-")}`}
-              state={char}
-            >
-              {char.name}
-            </Link>
-            <RemoveFav character={char} />
-          </li>
-        ))}
-      </div>
     </div>
   );
 };
 
-export default Home;
+export default Search;

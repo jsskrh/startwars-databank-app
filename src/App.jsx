@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Starfield from "./components/Starfield";
 import Character from "./pages/Character";
+import Search from "./pages/Search";
+import { useState } from "react";
 
 const style = {
   app: `flex flex-col min-h-screen justify-between`,
@@ -11,12 +13,15 @@ const style = {
 };
 
 function App() {
+  const [query, setQuery] = useState("");
+
   return (
     <div className={style.app}>
-      <Header />
+      <Header setQuery={setQuery} />
       <Starfield />
       <div className={style.main}>
         <Routes>
+          <Route path="/search" element={<Search query={query} />} />
           <Route path="/characters/*" element={<Character />} />
           <Route path="/*" element={<Home />} />
         </Routes>

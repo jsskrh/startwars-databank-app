@@ -5,7 +5,7 @@ import {
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const style = {
   container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a]`,
@@ -28,8 +28,10 @@ const style = {
   // searchContainerTransition: `width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out`,
 };
 
-const Header = () => {
+const Header = ({ setQuery }) => {
   const [showSearch, setShowSearch] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <div className={style.container}>
@@ -37,9 +39,6 @@ const Header = () => {
         <div className={`${style.paddedButton}`}>
           <Bars3Icon className={style.heroIcon} />
         </div>
-        {/* <div className={`${style.mobile} ${style.paddedButton}`}>
-          <Bars3Icon className={style.heroIcon} />
-        </div> */}
         <div className={style.logoContainer}>
           <Link to={`/`}>
             <img
@@ -54,24 +53,23 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div
-          className={`${style.paddedButton} bg-[#2f3640] relative flex justify-center`}
-          onClick={() => setShowSearch(!showSearch)}
-        >
+        <div className={`${style.paddedButton}  relative flex justify-center`}>
           <input
-            className={`border-0 left-0 p-0 text-white bg-black duration-500 order-1 w-0 ${
-              showSearch ? `w-[240px] px-[6px]` : ``
+            className={`border opacity-0 left-0 p-0 text-white bg-black duration-500 order-1 w-0 ${
+              showSearch ? `w-[240px] opacity-100 px-[6px] border-white` : ``
             }`}
             type="text"
             name=""
             placeholder="Search"
+            onChange={(e) => setQuery(e.target.value)}
           />
           <button
             className={`text-white  flex justify-center items-center order-last duration-500 ${
               showSearch ? `bg-white text-black` : ``
             }`}
             onClick={() => {
-              showSearch && setShowSearch(false);
+              setShowSearch(!showSearch);
+              !showSearch && navigate(`/search`);
             }}
           >
             <MagnifyingGlassIcon className={`${style.heroIcon}`} />
