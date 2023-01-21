@@ -6,6 +6,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import SidebarOverlay from "./SidebarOverlay";
 
 const style = {
   container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a]`,
@@ -30,13 +32,17 @@ const style = {
 
 const Header = ({ setQuery }) => {
   const [showSearch, setShowSearch] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const navigate = useNavigate();
 
   return (
     <div className={style.container}>
       <div className={style.containerInner}>
-        <div className={`${style.paddedButton}`}>
+        <div
+          className={`${style.paddedButton}`}
+          onClick={() => setShowSidebar(true)}
+        >
           <Bars3Icon className={style.heroIcon} />
         </div>
         <div className={style.logoContainer}>
@@ -81,6 +87,13 @@ const Header = ({ setQuery }) => {
             <MagnifyingGlassIcon className={style.heroIcon} />
           </div>
         </div> */}
+        {showSidebar && (
+          <SidebarOverlay
+            showSidebar={showSidebar}
+            setShowSidebar={setShowSidebar}
+          />
+        )}
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </div>
     </div>
   );
