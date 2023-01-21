@@ -1,7 +1,7 @@
-import React from "react";
+const style = { container: `container text-white` };
 
 const Home = () => {
-  return <div>Home</div>;
+  return <div className={style.container}></div>;
 };
 
 export default Home;
