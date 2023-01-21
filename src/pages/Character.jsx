@@ -9,7 +9,13 @@ const Character = () => {
   const character = location.state;
   console.log(location);
 
-  return <div className={style.container}>{character.name}</div>;
+  return (
+    <div className={style.container}>
+      <div>{character.name}</div>
+      <button>Add to Favourites</button>
+      <button>Remove from Favourites</button>
+    </div>
+  );
 };
 
 export default Character;
