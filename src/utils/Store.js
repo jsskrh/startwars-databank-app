@@ -23,7 +23,7 @@ function reducer(state, action) {
 
     case "FAV_REMOVE_CHAR": {
       const favourites = state.starwars.favourites.filter(
-        (char) => char.name !== action.payload.name
+        (char) => char !== action.payload
       );
       Cookies.set(
         "starwars",

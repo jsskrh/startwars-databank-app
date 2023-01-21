@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Store } from "../utils/Store";
+import RemoveFav from "../components/RemoveFav";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -7,6 +9,15 @@ const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageTotal, setPageTotal] = useState();
+
+  const { state, dispatch } = useContext(Store);
+  const {
+    starwars: { favourites },
+  } = state;
+
+  const removeFavHandler = (character) => {
+    dispatch({ type: "FAV_REMOVE_CHAR", payload: character.name });
+  };
 
   const fetchCharacters = async () => {
     try {
@@ -31,6 +42,9 @@ const Home = () => {
   return (
     <div className={style.container}>
       <ul>
+        <li>
+          <h2>Characters</h2>
+        </li>
         {characters.map((character) => (
           <li>
             <Link
@@ -58,6 +72,22 @@ const Home = () => {
         >
           Next
         </button>
+      </div>
+      <div>
+        <h2>Favourites</h2>
+        {favourites.map((char) => (
+          <li>
+            <Link
+              to={`/characters/${char.toLowerCase().replace(/\s/g, "-")}`}
+              state={
+                characters.filter((character) => character.name === char)[0]
+              }
+            >
+              {char}
+            </Link>
+            <RemoveFav character={char} />
+          </li>
+        ))}
       </div>
     </div>
   );
