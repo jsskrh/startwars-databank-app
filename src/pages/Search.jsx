@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchChar from "../components/SearchChar";
+import Pagination from "../components/Pagination";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -7,6 +8,7 @@ const Search = ({ query }) => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageTotal, setPageTotal] = useState();
+  const [lastPage, setLastPage] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -17,6 +19,9 @@ const Search = ({ query }) => {
       setCharacters(charactersData.results);
       console.log(charactersData);
       setPageTotal(charactersData.count / charactersData.results.length);
+      setLastPage(
+        Math.ceil(charactersData.count / charactersData.results.length)
+      );
     }
     if (query) {
       fetchData();
@@ -35,21 +40,11 @@ const Search = ({ query }) => {
           <SearchChar character={character} />
         ))}
       </ul>
-      <div>
-        <button
-          onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-        >
-          Previous
-        </button>
-        {currentPage}
-        <button
-          onClick={() =>
-            currentPage < pageTotal && setCurrentPage(currentPage + 1)
-          }
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        lastPage={lastPage}
+      />
     </div>
   );
 };
