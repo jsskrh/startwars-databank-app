@@ -16,7 +16,13 @@ const Pagination = ({ currentPage, setCurrentPage, lastPage }) => {
         } mr-2`}
         onClick={() => currentPage !== 1 && setCurrentPage(currentPage - 1)}
       />
-      {Array.from({ length: lastPage }, (_, i) => i + 1).map((page) => (
+      <button
+        className={style.pageNumberContainer}
+        onClick={() => setCurrentPage(1)}
+      >
+        1
+      </button>
+      {Array.from({ length: lastPage - 1 }, (_, i) => i + 2).map((page) => (
         <button
           className={style.pageNumberContainer}
           onClick={() => setCurrentPage(page)}

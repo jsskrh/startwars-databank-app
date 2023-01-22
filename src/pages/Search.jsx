@@ -3,7 +3,10 @@ import Pagination from "../components/Pagination";
 import PageTitle from "../components/PageTitle";
 import CharacterListItem from "../components/CharacterListItem";
 
-const style = { container: `container text-white w-full mx-auto` };
+const style = {
+  container: `container text-white w-full mx-auto my-5`,
+  containerInner: `mx-[4%] md:mx-[3%] pt-4 md:pt-10`,
+};
 
 const Search = ({ query }) => {
   const [characters, setCharacters] = useState([]);
@@ -18,7 +21,6 @@ const Search = ({ query }) => {
       );
       const charactersData = await response.json();
       setCharacters(charactersData.results);
-      console.log(charactersData);
       setPageTotal(charactersData.count / charactersData.results.length);
       setLastPage(
         Math.ceil(
@@ -36,17 +38,21 @@ const Search = ({ query }) => {
 
   return (
     <div className={style.container}>
-      <PageTitle title="Search Results" />
-      <ul>
-        {characters.map((character) => (
-          <CharacterListItem character={character} search />
-        ))}
-      </ul>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        lastPage={lastPage}
-      />
+      <div className={style.containerInner}>
+        <div className={style.content}>
+          <PageTitle title="Search Results" />
+          <ul>
+            {characters.map((character) => (
+              <CharacterListItem character={character} search />
+            ))}
+          </ul>
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          lastPage={lastPage}
+        />
+      </div>
     </div>
   );
 };
