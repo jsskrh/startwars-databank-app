@@ -9,7 +9,6 @@ import SearchHistory from "./SearchHistory";
 const style = {
   container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[#48494a] relative z-30`,
   containerInner: `md:p-5 flex justify-between items-center text-white h-full`,
-  // containerInner: `md:p-5 flex justify-between md:justify-start items-center text-white h-full`,
   heroIcon: `h-6 w-6 sm:h-8 sm:w-8`,
   heroIconMobileSearch: `h-6 w-6 sm:h-8 sm:w-8 ml-4`,
   paddedButton: `p-5`,
@@ -22,9 +21,10 @@ const style = {
   xMark: `mr-5`,
   mobile: `md:hidden`,
   desktop: `hidden md:flex`,
-
-  // searchContainerShow: `w-full h-auto`,
-  // searchContainerTransition: `width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out`,
+  searchBoxInput: `border opacity-0 left-0 p-0 text-white bg-black duration-500 order-1 w-0`,
+  searchBoxInputShow: `w-[240px] opacity-100 px-[6px] border-white`,
+  searchIconContainer: `text-white  flex justify-center items-center order-last duration-500`,
+  searchIconContainerShow: `bg-white text-black`,
 };
 
 const Header = ({ setQuery, showSearch, setShowSearch }) => {
@@ -62,8 +62,8 @@ const Header = ({ setQuery, showSearch, setShowSearch }) => {
         </div>
         <div className={`${style.paddedButton}  relative flex justify-center`}>
           <input
-            className={`border opacity-0 left-0 p-0 text-white bg-black duration-500 order-1 w-0 ${
-              showSearch ? `w-[240px] opacity-100 px-[6px] border-white` : ``
+            className={`${style.searchBoxInput} ${
+              showSearch && style.searchBoxInputShow
             }`}
             type="text"
             name=""
@@ -75,8 +75,8 @@ const Header = ({ setQuery, showSearch, setShowSearch }) => {
             }}
           />
           <button
-            className={`text-white  flex justify-center items-center order-last duration-500 ${
-              showSearch ? `bg-white text-black` : ``
+            className={`${style.searchIconContainer} ${
+              showSearch && style.searchIconContainerShow
             }`}
             onClick={() => {
               setShowSearch(!showSearch);
