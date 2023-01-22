@@ -16,7 +16,6 @@ const style = {
 const Search = ({ query }) => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageTotal, setPageTotal] = useState();
   const [lastPage, setLastPage] = useState();
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const Search = ({ query }) => {
       );
       const charactersData = await response.json();
       setCharacters(charactersData.results);
-      setPageTotal(charactersData.count / charactersData.results.length);
       setLastPage(
         Math.ceil(
           charactersData.count /

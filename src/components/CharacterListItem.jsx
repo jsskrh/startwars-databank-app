@@ -27,7 +27,13 @@ const style = {
   sidebarNotchContainerBefore: `rounded-b-[8px] before:w-[50%] before:left-0 before:border-r-[14px] before:border-t-[14px] before:border-r-transparent before:border-t-[#1D1E1F] before:top-auto before:absolute`,
 };
 
-const CharacterListItem = ({ character, search, sidebar }) => {
+const CharacterListItem = ({
+  character,
+  search,
+  sidebar,
+  setShowOverlay,
+  setShowSidebar,
+}) => {
   const { dispatch } = useContext(Store);
 
   const addSearchHandler = () => {

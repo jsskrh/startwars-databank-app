@@ -1,10 +1,6 @@
 import { useState } from "react";
 import assets from "../assets";
-import {
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import SidebarOverlay from "./SidebarOverlay";

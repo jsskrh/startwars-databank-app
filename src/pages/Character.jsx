@@ -47,58 +47,51 @@ const Character = () => {
     dispatch({ type: "FAV_REMOVE_CHAR", payload: character });
   };
 
-  const fetchData = async () => {
-    try {
-      let filmArr = [];
-      character.films.forEach(async (film) => {
-        const response = await fetch(film);
-        const fetchedData = await response.json();
-        filmArr.push(await fetchedData);
-      });
-      setFilms(filmArr);
-
-      let speciesArr = [];
-      character.species.forEach(async (specie) => {
-        const response = await fetch(specie);
-        const fetchedData = await response.json();
-        speciesArr.push(await fetchedData);
-      });
-      setSpecies(speciesArr);
-
-      let starshipsArr = [];
-      character.starships.forEach(async (starship) => {
-        const response = await fetch(starship);
-        const fetchedData = await response.json();
-        starshipsArr.push(await fetchedData);
-      });
-      setStarships(starshipsArr);
-
-      let vehiclesArr = [];
-      character.vehicles.forEach(async (vehicle) => {
-        const response = await fetch(vehicle);
-        const fetchedData = await response.json();
-        vehiclesArr.push(await fetchedData);
-      });
-      setVehicles(vehiclesArr);
-
-      const homeworldResponse = await fetch(character.homeworld);
-      const homeworldData = await homeworldResponse.json();
-      setHomeworld(await homeworldData.name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const filterFilms = () => {
-    const uniqueItems = films.filter(
-      (item, index) => films.indexOf(item) === index
-    );
-    setFilms(uniqueItems);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let filmArr = [];
+        character.films.forEach(async (film) => {
+          const response = await fetch(film);
+          const fetchedData = await response.json();
+          filmArr.push(await fetchedData);
+        });
+        setFilms(filmArr);
+
+        let speciesArr = [];
+        character.species.forEach(async (specie) => {
+          const response = await fetch(specie);
+          const fetchedData = await response.json();
+          speciesArr.push(await fetchedData);
+        });
+        setSpecies(speciesArr);
+
+        let starshipsArr = [];
+        character.starships.forEach(async (starship) => {
+          const response = await fetch(starship);
+          const fetchedData = await response.json();
+          starshipsArr.push(await fetchedData);
+        });
+        setStarships(starshipsArr);
+
+        let vehiclesArr = [];
+        character.vehicles.forEach(async (vehicle) => {
+          const response = await fetch(vehicle);
+          const fetchedData = await response.json();
+          vehiclesArr.push(await fetchedData);
+        });
+        setVehicles(vehiclesArr);
+
+        const homeworldResponse = await fetch(character.homeworld);
+        const homeworldData = await homeworldResponse.json();
+        setHomeworld(await homeworldData.name);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [character]);
 
   return (
     <div className={style.container}>
