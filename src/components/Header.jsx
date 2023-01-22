@@ -8,9 +8,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import SidebarOverlay from "./SidebarOverlay";
+import SearchHistory from "./SearchHistory";
 
 const style = {
-  container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a]`,
+  container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a] relative`,
   containerInner: `md:p-5 flex justify-between items-center text-white h-full`,
   // containerInner: `md:p-5 flex justify-between md:justify-start items-center text-white h-full`,
   heroIcon: `h-6 w-6 sm:h-8 sm:w-8`,
@@ -30,9 +31,9 @@ const style = {
   // searchContainerTransition: `width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out`,
 };
 
-const Header = ({ setQuery }) => {
-  const [showSearch, setShowSearch] = useState(false);
+const Header = ({ setQuery, showSearch, setShowSearch }) => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showSearchHistory, setShowSearchHistory] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,7 +68,10 @@ const Header = ({ setQuery }) => {
             type="text"
             name=""
             placeholder="Search"
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setShowSearchHistory(false);
+            }}
           />
           <button
             className={`text-white  flex justify-center items-center order-last duration-500 ${
@@ -75,6 +79,7 @@ const Header = ({ setQuery }) => {
             }`}
             onClick={() => {
               setShowSearch(!showSearch);
+              setShowSearchHistory(true);
               !showSearch && navigate(`/search`);
             }}
           >
@@ -87,6 +92,7 @@ const Header = ({ setQuery }) => {
             <MagnifyingGlassIcon className={style.heroIcon} />
           </div>
         </div> */}
+        {showSearchHistory && showSearch && <SearchHistory />}
         {showSidebar && (
           <SidebarOverlay
             showSidebar={showSidebar}

@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Store } from "../utils/Store";
-import RemoveFav from "../components/RemoveFav";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -9,11 +7,6 @@ const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageTotal, setPageTotal] = useState();
-
-  const { state } = useContext(Store);
-  const {
-    starwars: { favourites },
-  } = state;
 
   const fetchCharacters = async () => {
     try {
@@ -66,20 +59,6 @@ const Home = () => {
         >
           Next
         </button>
-      </div>
-      <div>
-        <h2>Favourites</h2>
-        {favourites.map((char) => (
-          <li>
-            <Link
-              to={`/characters/${char.name.toLowerCase().replace(/\s/g, "-")}`}
-              state={char}
-            >
-              {char.name}
-            </Link>
-            <RemoveFav character={char} />
-          </li>
-        ))}
       </div>
     </div>
   );

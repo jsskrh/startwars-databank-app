@@ -14,12 +14,17 @@ const style = {
 
 function App() {
   const [query, setQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div className={style.app}>
-      <Header setQuery={setQuery} />
+      <Header
+        setQuery={setQuery}
+        showSearch={showSearch}
+        setShowSearch={setShowSearch}
+      />
       <Starfield />
-      <div className={style.main}>
+      <div className={style.main} onClick={() => setShowSearch(false)}>
         <Routes>
           <Route path="/search" element={<Search query={query} />} />
           <Route path="/characters/*" element={<Character />} />

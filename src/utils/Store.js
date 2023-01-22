@@ -6,7 +6,7 @@ export const Store = createContext();
 const initialState = {
   starwars: Cookies.get("starwars")
     ? JSON.parse(Cookies.get("starwars"))
-    : { favourites: [], searchOptions: [] },
+    : { favourites: [], searchHistory: [] },
 };
 
 function reducer(state, action) {
@@ -30,6 +30,28 @@ function reducer(state, action) {
         JSON.stringify({ ...state.starwars, favourites })
       );
       return { ...state, starwars: { ...state.starwars, favourites } };
+    }
+
+    case "SEARCH_ADD_CHAR": {
+      const newChar = action.payload;
+      const exists = state.starwars.searchHistory.find(
+        (char) => char.name === newChar.name
+      );
+
+      const searchHistory = exists
+        ? [
+            ...state.starwars.searchHistory.filter(
+              (char) => char.name !== action.payload.name
+            ),
+            newChar,
+          ]
+        : [...state.starwars.searchHistory, newChar];
+
+      Cookies.set(
+        "starwars",
+        JSON.stringify({ ...state.starwars, searchHistory })
+      );
+      return { ...state, starwars: { ...state.starwars, searchHistory } };
     }
 
     case "FAV_CLEAR_CHARS":

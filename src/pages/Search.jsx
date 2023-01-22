@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import SearchChar from "../components/SearchChar";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -32,16 +32,7 @@ const Search = ({ query }) => {
           <h2>Search Results</h2>
         </li>
         {characters.map((character) => (
-          <li>
-            <Link
-              to={`/characters/${character.name
-                .toLowerCase()
-                .replace(/\s/g, "-")}`}
-              state={character}
-            >
-              {character.name}
-            </Link>
-          </li>
+          <SearchChar character={character} />
         ))}
       </ul>
       <div>
