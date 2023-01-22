@@ -36,6 +36,10 @@ const CharacterListItem = ({ character, search, sidebar }) => {
     dispatch({ type: "SEARCH_ADD_CHAR", payload: character });
   };
 
+  const removeFavHandler = () => {
+    dispatch({ type: "FAV_REMOVE_CHAR", payload: character });
+  };
+
   return (
     <li
       className={`${style.listItem} ${
@@ -85,7 +89,10 @@ const CharacterListItem = ({ character, search, sidebar }) => {
               {sidebar && (
                 <XMarkIcon
                   className={style.heroIcon}
-                  onClick={() => console.log("clicked")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    removeFavHandler();
+                  }}
                 />
               )}
             </div>
