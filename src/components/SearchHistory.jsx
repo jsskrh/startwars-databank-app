@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const style = {
   container: `absolute bottom-0 right-0 translate-y-[calc(100%+1px)] w-full max-w-[574px] bg-black z-30`,
   containerInner: `p-5`,
+  title: `mb-3 font-bold`,
   searchItem: `mb-2 font-russo text-lg cursor-pointer opacity-50 hover:opacity-100`,
 };
 

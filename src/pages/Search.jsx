@@ -9,7 +9,7 @@ const style = {
   containerInner: `mx-[4%] md:mx-[3%] pt-4 md:pt-10`,
   emptyContainer: `mt-10 relative flex justify-center align-center`,
   emptyImageContainer: `h-[60vh]`,
-  emptyImage: `max-h-full max-w-full opacity-20`,
+  emptyImage: `max-h-full max-w-full opacity-30`,
   emptyText: `absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl text-[#5a5c5d]`,
 };
 

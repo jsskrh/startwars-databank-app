@@ -5,6 +5,7 @@ const style = {
   pageNumberContainer: `border border-white w-8 flex justify-center mr-2`,
   heroIcon: `h-5 w-5 cursor-pointer`,
   disabled: `cursor-default opacity-30`,
+  bold: `font-bold`,
 };
 
 const Pagination = ({ currentPage, setCurrentPage, lastPage }) => {
@@ -17,14 +18,18 @@ const Pagination = ({ currentPage, setCurrentPage, lastPage }) => {
         onClick={() => currentPage !== 1 && setCurrentPage(currentPage - 1)}
       />
       <button
-        className={style.pageNumberContainer}
+        className={`${style.pageNumberContainer} ${
+          currentPage === 1 && style.bold
+        }`}
         onClick={() => setCurrentPage(1)}
       >
         1
       </button>
       {Array.from({ length: lastPage - 1 }, (_, i) => i + 2).map((page) => (
         <button
-          className={style.pageNumberContainer}
+          className={`${style.pageNumberContainer} ${
+            currentPage === page && style.bold
+          }`}
           onClick={() => setCurrentPage(page)}
         >
           {page}
