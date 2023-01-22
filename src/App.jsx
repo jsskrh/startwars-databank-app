@@ -8,7 +8,7 @@ import Search from "./pages/Search";
 import { useState } from "react";
 
 const style = {
-  app: `flex flex-col min-h-screen justify-between`,
+  app: `flex flex-col min-h-screen justify-between font-roboto`,
   main: `my-auto mt-0`,
 };
 

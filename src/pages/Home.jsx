@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import PageTitle from "../components/PageTitle";
+import CharacterListItem from "../components/CharacterListItem";
 
-const style = { container: `container text-white w-full mx-auto` };
+const style = {
+  container: `container text-white w-full mx-auto my-5`,
+  containerInner: `mx-[4%] md:mx-[3%] pt-4 md:pt-10`,
+};
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
@@ -33,28 +38,20 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      <ul>
-        <li>
-          <h2>Characters</h2>
-        </li>
-        {characters.map((character) => (
-          <li>
-            <Link
-              to={`/characters/${character.name
-                .toLowerCase()
-                .replace(/\s/g, "-")}`}
-              state={character}
-            >
-              {character.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        lastPage={lastPage}
-      />
+      <div className={style.containerInner}>
+        <PageTitle title="Characters" />
+
+        <ul>
+          {characters.map((character) => (
+            <CharacterListItem character={character} />
+          ))}
+        </ul>
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          lastPage={lastPage}
+        />
+      </div>
     </div>
   );
 };

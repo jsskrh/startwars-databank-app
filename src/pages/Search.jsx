@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import SearchChar from "../components/SearchChar";
 import Pagination from "../components/Pagination";
+import PageTitle from "../components/PageTitle";
+import CharacterListItem from "../components/CharacterListItem";
 
 const style = { container: `container text-white w-full mx-auto` };
 
@@ -32,12 +33,10 @@ const Search = ({ query }) => {
 
   return (
     <div className={style.container}>
+      <PageTitle title="Search Results" />
       <ul>
-        <li>
-          <h2>Search Results</h2>
-        </li>
         {characters.map((character) => (
-          <SearchChar character={character} />
+          <CharacterListItem character={character} search />
         ))}
       </ul>
       <Pagination

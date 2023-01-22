@@ -11,7 +11,7 @@ import SidebarOverlay from "./SidebarOverlay";
 import SearchHistory from "./SearchHistory";
 
 const style = {
-  container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[48494a] relative`,
+  container: `bg-black h-16 sm:h-[72px] md:h-[120px] border-b border-[#48494a] relative`,
   containerInner: `md:p-5 flex justify-between items-center text-white h-full`,
   // containerInner: `md:p-5 flex justify-between md:justify-start items-center text-white h-full`,
   heroIcon: `h-6 w-6 sm:h-8 sm:w-8`,

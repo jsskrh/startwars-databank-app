@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { Store } from "../utils/Store";
 import { useContext } from "react";
 import RemoveFav from "../components/RemoveFav";
+import PageTitle from "../components/PageTitle";
 
 const style = {
   container: `container text-white w-full mx-auto`,
@@ -25,11 +26,9 @@ const Character = () => {
     dispatch({ type: "FAV_ADD_CHAR", payload: character });
   };
 
-  console.log(favourites);
-
   return (
     <div className={style.container}>
-      <div>{character.name}</div>
+      <PageTitle title={character.name} />
       {favourites.find((char) => char.name === character.name) ? (
         <RemoveFav character={character} />
       ) : (

@@ -1,5 +1,5 @@
 const style = {
-  footer: `px-10 py-5 flex justify-center bg-black border-t border-white`,
+  footer: `px-10 py-5 flex justify-center bg-black border-t border-[#48494a]`,
   footerText: `text-white text-sm`,
   boldText: `font-bold`,
 };
