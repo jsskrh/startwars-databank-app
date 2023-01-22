@@ -29,7 +29,7 @@ Users can also view their search history which is stored on the client side usin
 
 1. Clone the repository
 
-`git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY`
+`git clone https://github.com/jsskrh/startwars-databank-app`
 
 2. Install the dependencies
 
