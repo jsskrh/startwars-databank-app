@@ -7,6 +7,7 @@ import CharacterListItem from "../components/CharacterListItem";
 const style = {
   container: `container text-white w-full mx-auto my-5`,
   containerInner: `mx-[4%] md:mx-[3%] pt-4 md:pt-10`,
+  content: ``,
 };
 
 const Home = () => {
@@ -21,10 +22,12 @@ const Home = () => {
         `https://swapi.dev/api/people/?page=${currentPage}`
       );
       const charactersData = await response.json();
-      console.log(charactersData);
       setPageTotal(charactersData.count / charactersData.results.length);
       setLastPage(
-        Math.ceil(charactersData.count / charactersData.results.length)
+        Math.ceil(
+          charactersData.count /
+            (Math.ceil(charactersData.results.length / 10) * 10)
+        )
       );
       setCharacters(charactersData.results);
     } catch (error) {
@@ -39,13 +42,15 @@ const Home = () => {
   return (
     <div className={style.container}>
       <div className={style.containerInner}>
-        <PageTitle title="Characters" />
+        <div className={style.content}>
+          <PageTitle title="Characters" />
 
-        <ul>
-          {characters.map((character) => (
-            <CharacterListItem character={character} />
-          ))}
-        </ul>
+          <ul>
+            {characters.map((character) => (
+              <CharacterListItem character={character} />
+            ))}
+          </ul>
+        </div>
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

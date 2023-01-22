@@ -21,7 +21,10 @@ const Search = ({ query }) => {
       console.log(charactersData);
       setPageTotal(charactersData.count / charactersData.results.length);
       setLastPage(
-        Math.ceil(charactersData.count / charactersData.results.length)
+        Math.ceil(
+          charactersData.count /
+            (Math.ceil(charactersData.results.length / 10) * 10)
+        )
       );
     }
     if (query) {
