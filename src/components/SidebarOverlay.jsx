@@ -3,11 +3,14 @@ const style = {
   overlayVisible: `opacity-50`,
 };
 
-const SidebarOverlay = ({ showSidebar, setShowSidebar }) => {
+const SidebarOverlay = ({ showSidebar, setShowSidebar, setShowOverlay }) => {
   return (
     <div
       className={`${style.overlay} ${showSidebar && style.overlayVisible}`}
-      onClick={() => setShowSidebar(false)}
+      onClick={() => {
+        setShowSidebar(false);
+        setShowOverlay(false);
+      }}
     ></div>
   );
 };

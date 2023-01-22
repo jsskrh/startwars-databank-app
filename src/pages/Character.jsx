@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Store } from "../utils/Store";
 import { useContext } from "react";
-import RemoveFav from "../components/RemoveFav";
 import PageTitle from "../components/PageTitle";
 import { useState } from "react";
 import { useEffect } from "react";

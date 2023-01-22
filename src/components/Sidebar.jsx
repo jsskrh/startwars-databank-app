@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
-import RemoveFav from "./RemoveFav";
 import { useContext } from "react";
 import { Store } from "../utils/Store";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+
 import PageTitle from "./PageTitle";
 import CharacterListItem from "./CharacterListItem";
 
@@ -15,7 +13,7 @@ const style = {
   heroIcon: `h-6 w-6 sm:h-8 sm:w-8 cursor-pointer`,
 };
 
-const Sidebar = ({ showSidebar, setShowSidebar }) => {
+const Sidebar = ({ showSidebar, setShowSidebar, setShowOverlay }) => {
   const { state } = useContext(Store);
   const {
     starwars: { favourites },
@@ -30,22 +28,12 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             favourites
             heroIcon={style.heroIcon}
             setShowSidebar={setShowSidebar}
+            setShowOverlay={setShowOverlay}
           />
         </div>
         <div className={style.characterList}>
           <ul>
             {favourites.map((character) => (
-              // <li>
-              //   <Link
-              //     to={`/characters/${character.name
-              //       .toLowerCase()
-              //       .replace(/\s/g, "-")}`}
-              //     state={character}
-              //   >
-              //     {character.name}
-              //   </Link>
-              //   <RemoveFav character={character} />
-              // </li>
               <CharacterListItem character={character} sidebar />
             ))}
           </ul>

@@ -7,7 +7,13 @@ const style = {
   closeIcon: `absolute right-0 top-2 md:top-1`,
 };
 
-const PageTitle = ({ title, favourites, setShowSidebar, heroIcon }) => {
+const PageTitle = ({
+  title,
+  favourites,
+  setShowSidebar,
+  heroIcon,
+  setShowOverlay,
+}) => {
   return (
     <div className={style.titleContainer}>
       <div className={style.title}>
@@ -16,7 +22,10 @@ const PageTitle = ({ title, favourites, setShowSidebar, heroIcon }) => {
       {favourites && (
         <XMarkIcon
           className={`${heroIcon} ${style.closeIcon}`}
-          onClick={() => setShowSidebar(false)}
+          onClick={() => {
+            setShowSidebar(false);
+            setShowOverlay(false);
+          }}
         />
       )}
     </div>

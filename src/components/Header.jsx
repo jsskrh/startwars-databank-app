@@ -33,6 +33,7 @@ const style = {
 
 const Header = ({ setQuery, showSearch, setShowSearch }) => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
   const [showSearchHistory, setShowSearchHistory] = useState(false);
 
   const navigate = useNavigate();
@@ -42,7 +43,10 @@ const Header = ({ setQuery, showSearch, setShowSearch }) => {
       <div className={style.containerInner}>
         <div
           className={`${style.paddedButton}`}
-          onClick={() => setShowSidebar(true)}
+          onClick={() => {
+            setShowSidebar(true);
+            setShowOverlay(true);
+          }}
         >
           <Bars3Icon className={style.heroIcon} />
         </div>
@@ -71,6 +75,7 @@ const Header = ({ setQuery, showSearch, setShowSearch }) => {
             onChange={(e) => {
               setQuery(e.target.value);
               setShowSearchHistory(false);
+              setShowOverlay(false);
             }}
           />
           <button
@@ -86,20 +91,21 @@ const Header = ({ setQuery, showSearch, setShowSearch }) => {
             <MagnifyingGlassIcon className={`${style.heroIcon}`} />
           </button>
         </div>
-        {/* <div className={`${style.searchContainer} ${style.desktop}`}>
-          <div className={style.searchBox}>
-            <input type="text" className={style.searchInput} />
-            <MagnifyingGlassIcon className={style.heroIcon} />
-          </div>
-        </div> */}
-        {showSearchHistory && showSearch && <SearchHistory />}
-        {showSidebar && (
+        {showSearchHistory && showSearch && (
+          <SearchHistory setShowOverlay={setShowOverlay} />
+        )}
+        {showOverlay && (
           <SidebarOverlay
             showSidebar={showSidebar}
             setShowSidebar={setShowSidebar}
+            setShowOverlay={setShowOverlay}
           />
         )}
-        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        <Sidebar
+          showSidebar={showSidebar}
+          setShowSidebar={setShowSidebar}
+          setShowOverlay={setShowOverlay}
+        />
       </div>
     </div>
   );

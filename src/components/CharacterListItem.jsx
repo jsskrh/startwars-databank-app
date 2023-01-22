@@ -14,6 +14,7 @@ const style = {
   textWrap: `border border-[#9e4f60] rounded-tr-[8px] relative p-2 bg-[#1D1E1F] mb-[14px] w-[80%]`,
   sidebarTextWrap: `w-full rounded-t-[8px] rounded-r-[8px]`,
   shortDesc: `ml-4 md:text-xl flex flex-nowrap w-[60%] justify-between`,
+  russo: `font-russo`,
   sidebarShortDesc: `md:text-base w-[unset]`,
   physDesc: `hidden lg:flex flex-nowrap`,
   descText: `ml-3`,
@@ -27,10 +28,7 @@ const style = {
 };
 
 const CharacterListItem = ({ character, search, sidebar }) => {
-  const { state, dispatch } = useContext(Store);
-  const {
-    starwars: { searchHistory },
-  } = state;
+  const { dispatch } = useContext(Store);
 
   const addSearchHandler = () => {
     dispatch({ type: "SEARCH_ADD_CHAR", payload: character });
@@ -79,7 +77,9 @@ const CharacterListItem = ({ character, search, sidebar }) => {
                 sidebar && style.sidebarShortDesc
               }`}
             >
-              <span className={style.text}>{character.name}</span>
+              <span className={`${style.text} ${!sidebar && style.russo}`}>
+                {character.name}
+              </span>
               {!sidebar && (
                 <div className={style.physDesc}>
                   <span className={style.descText}>H: {character.height}</span>
