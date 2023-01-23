@@ -4,6 +4,7 @@ import { useContext } from "react";
 import PageTitle from "../components/PageTitle";
 import { useState } from "react";
 import { useEffect } from "react";
+import InfoBox from "../components/InfoBox";
 
 const style = {
   container: `container text-white w-full mx-auto my-5`,
@@ -140,48 +141,19 @@ const Character = () => {
             </div>
           </div>
 
-          <div className={style.infoBox}>
-            <div className={style.wrapper}>
-              <h3 className={style.infoBoxHeader}>- Species</h3>
-              {species.map((specie) => (
-                <p className={style.infoText} key={specie.name}>
-                  Name: <span className={style.fetchedText}>{specie.name}</span>
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div className={style.infoBox}>
-            <div className={style.wrapper}>
-              <h3 className={style.infoBoxHeader}>- Starships</h3>
-              {starships.map((starship) => (
-                <p className={style.infoText} key={starship.name}>
-                  <span className={style.fetchedText}>{starship.name}</span>
-                </p>
-              ))}
-            </div>
-          </div>
-          <div className={style.infoBox}>
-            <div className={style.wrapper}>
-              <h3 className={style.infoBoxHeader}>- Vehicles</h3>
-              {vehicles.map((vehicle) => (
-                <p className={style.infoText} key={vehicle.name}>
-                  <span className={style.fetchedText}>{vehicle.name}</span>
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div className={style.infoBox}>
-            <div className={style.wrapper}>
-              <h3 className={style.infoBoxHeader}>- Films</h3>
-              {films.map((film) => (
-                <p className={style.infoText} key={film.title}>
-                  <span className={style.fetchedText}>{film.title}</span>
-                </p>
-              ))}
-            </div>
-          </div>
+          {[
+            { name: "Species", array: species },
+            { name: "Starships", array: starships },
+            { name: "Vehicles", array: vehicles },
+            { name: "Films", array: films },
+          ].map((category) => (
+            <InfoBox
+              style={style}
+              array={category.array}
+              title={category.name}
+              key={category.name}
+            />
+          ))}
         </div>
         <div className={style.actionButtonContainer}>
           {favourites.find((char) => char.name === character.name) ? (
