@@ -5,6 +5,7 @@ import PageTitle from "../components/PageTitle";
 import { useState } from "react";
 import { useEffect } from "react";
 import InfoBox from "../components/InfoBox";
+import InfoText from "../components/InfoText";
 
 const style = {
   container: `container text-white w-full mx-auto my-5`,
@@ -102,42 +103,23 @@ const Character = () => {
           <div className={style.infoBox}>
             <div className={style.wrapper}>
               <h3 className={style.infoBoxHeader}>- Basic Info</h3>
-              <p className={style.infoText}>
-                Name:{" "}
-                <span className={style.fetchedText}>{character.name}</span>
-              </p>
-              <p className={style.infoText}>
-                Gender:{" "}
-                <span className={style.fetchedText}>{character.gender}</span>
-              </p>
-              <p className={style.infoText}>
-                Height:{" "}
-                <span className={style.fetchedText}>{character.height}</span>
-              </p>
-              <p className={style.infoText}>
-                Weight:{" "}
-                <span className={style.fetchedText}>{character.mass}</span>
-              </p>
-              <p className={style.infoText}>
-                Skin Color:{" "}
-                <span className={style.fetchedText}>
-                  {character.skin_color}
-                </span>
-              </p>
-              <p className={style.infoText}>
-                Eye Color:{" "}
-                <span className={style.fetchedText}>{character.eye_color}</span>
-              </p>
-              <p className={style.infoText}>
-                Birth Year:{" "}
-                <span className={style.fetchedText}>
-                  {character.birth_year}
-                </span>
-              </p>
-              <p className={style.infoText}>
-                Homeworld:{" "}
-                <span className={style.fetchedText}>{homeworld}</span>
-              </p>
+              {[
+                { criteria: "Name", data: character.name },
+                { criteria: "Gender", data: character.gender },
+                { criteria: "Height", data: character.height },
+                { criteria: "Weight", data: character.mass },
+                { criteria: "Skin Color", data: character.skin_color },
+                { criteria: "Eye Color", data: character.eye_color },
+                { criteria: "Birth Year", data: character.birth_year },
+                { criteria: "Homeworld", data: homeworld },
+              ].map((info) => (
+                <InfoText
+                  style={style}
+                  criteria={info.criteria}
+                  data={info.data}
+                  key={info.criteria}
+                />
+              ))}
             </div>
           </div>
 
