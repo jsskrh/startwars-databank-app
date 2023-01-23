@@ -31,6 +31,7 @@ const Pagination = ({ currentPage, setCurrentPage, lastPage }) => {
             currentPage === page && style.bold
           }`}
           onClick={() => setCurrentPage(page)}
+          key={page}
         >
           {page}
         </button>

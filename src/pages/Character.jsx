@@ -144,7 +144,7 @@ const Character = () => {
             <div className={style.wrapper}>
               <h3 className={style.infoBoxHeader}>- Species</h3>
               {species.map((specie) => (
-                <p className={style.infoText}>
+                <p className={style.infoText} key={specie.name}>
                   Name: <span className={style.fetchedText}>{specie.name}</span>
                 </p>
               ))}
@@ -155,8 +155,7 @@ const Character = () => {
             <div className={style.wrapper}>
               <h3 className={style.infoBoxHeader}>- Starships</h3>
               {starships.map((starship) => (
-                <p className={style.infoText}>
-                  Name:{" "}
+                <p className={style.infoText} key={starship.name}>
                   <span className={style.fetchedText}>{starship.name}</span>
                 </p>
               ))}
@@ -166,8 +165,7 @@ const Character = () => {
             <div className={style.wrapper}>
               <h3 className={style.infoBoxHeader}>- Vehicles</h3>
               {vehicles.map((vehicle) => (
-                <p className={style.infoText}>
-                  Name:{" "}
+                <p className={style.infoText} key={vehicle.name}>
                   <span className={style.fetchedText}>{vehicle.name}</span>
                 </p>
               ))}
@@ -178,8 +176,8 @@ const Character = () => {
             <div className={style.wrapper}>
               <h3 className={style.infoBoxHeader}>- Films</h3>
               {films.map((film) => (
-                <p className={style.infoText}>
-                  Title: <span className={style.fetchedText}>{film.title}</span>
+                <p className={style.infoText} key={film.title}>
+                  <span className={style.fetchedText}>{film.title}</span>
                 </p>
               ))}
             </div>

@@ -22,7 +22,7 @@ const SearchHistory = () => {
         <ul>
           {searchHistory
             .map((character) => (
-              <li className={style.searchItem}>
+              <li className={style.searchItem} key={character.name}>
                 <Link
                   to={`/characters/${character.name
                     .toLowerCase()

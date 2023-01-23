@@ -44,7 +44,7 @@ const Home = () => {
 
           <ul>
             {characters.map((character) => (
-              <CharacterListItem character={character} />
+              <CharacterListItem character={character} key={character.name} />
             ))}
           </ul>
         </div>

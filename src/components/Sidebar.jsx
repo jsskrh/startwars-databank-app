@@ -34,7 +34,11 @@ const Sidebar = ({ showSidebar, setShowSidebar, setShowOverlay }) => {
         <div className={style.characterList}>
           <ul>
             {favourites.map((character) => (
-              <CharacterListItem character={character} sidebar />
+              <CharacterListItem
+                key={character.name}
+                character={character}
+                sidebar
+              />
             ))}
           </ul>
         </div>
