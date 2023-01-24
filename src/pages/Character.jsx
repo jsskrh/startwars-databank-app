@@ -20,6 +20,7 @@ const style = {
   infoBoxHeader: `font-bold leading-10 mb-2`,
   infoText: `mb-2 font-russo text-lg flex flex-nowrap`,
   fetchedText: `capitalize ml-2 flex align-center flex-1`,
+  loadingAnimation: `animate-pulse bg-slate-200 rounded h-3 w-full my-auto`,
 };
 
 const Character = () => {
