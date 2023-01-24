@@ -3,6 +3,7 @@ import Pagination from "../components/Pagination";
 import PageTitle from "../components/PageTitle";
 import CharacterListItem from "../components/CharacterListItem";
 import assets from "../assets";
+import LoadingListItem from "../components/LoadingListItem";
 
 const style = {
   container: `container text-white w-full mx-auto my-5`,
@@ -17,14 +18,17 @@ const Search = ({ query }) => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState();
+  const [isFetched, setIsFetched] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
+      setIsFetched(false);
       const response = await fetch(
         `https://swapi.dev/api/people/?search=${query}&page=${currentPage}`
       );
       const charactersData = await response.json();
       setCharacters(charactersData.results);
+      setIsFetched(true);
       setLastPage(
         Math.ceil(
           charactersData.count /
@@ -44,24 +48,34 @@ const Search = ({ query }) => {
       <div className={style.containerInner}>
         <div className={style.content}>
           <PageTitle title="Search Results" />
-          {characters.length === 0 ? (
-            <div className={style.emptyContainer}>
-              <div className={style.emptyImageContainer}>
-                <img
-                  src={assets.deathStar}
-                  alt="death star"
-                  className={style.emptyImage}
-                />
-              </div>
-              <h3 className={style.emptyText}>No result</h3>
-            </div>
-          ) : (
-            <ul>
-              {characters.map((character) => (
-                <CharacterListItem character={character} search />
-              ))}
-            </ul>
-          )}
+          <ul>
+            {isFetched ? (
+              characters.length === 0 ? (
+                <li className={style.emptyContainer}>
+                  <div className={style.emptyImageContainer}>
+                    <img
+                      src={assets.deathStar}
+                      alt="death star"
+                      className={style.emptyImage}
+                    />
+                  </div>
+                  <h3 className={style.emptyText}>No result</h3>
+                </li>
+              ) : (
+                characters.map((character) => (
+                  <CharacterListItem
+                    character={character}
+                    key={character.name}
+                    search
+                  />
+                ))
+              )
+            ) : (
+              Array.from({ length: lastPage || 10 }, (_, i) => i).map(
+                (placeholder) => <LoadingListItem key={placeholder} />
+              )
+            )}
+          </ul>
         </div>
         <Pagination
           currentPage={currentPage}

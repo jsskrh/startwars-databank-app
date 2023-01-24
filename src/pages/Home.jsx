@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 import PageTitle from "../components/PageTitle";
 import CharacterListItem from "../components/CharacterListItem";
+import LoadingListItem from "../components/LoadingListItem";
 
 const style = {
   container: `container text-white w-full mx-auto my-5`,
@@ -13,8 +14,10 @@ const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState();
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
+    setIsFetched(false);
     const fetchCharacters = async () => {
       try {
         const response = await fetch(
@@ -28,6 +31,7 @@ const Home = () => {
           )
         );
         setCharacters(charactersData.results);
+        setIsFetched(true);
       } catch (error) {
         console.log(error);
       }
@@ -43,9 +47,16 @@ const Home = () => {
           <PageTitle title="Characters" />
 
           <ul>
-            {characters.map((character) => (
-              <CharacterListItem character={character} key={character.name} />
-            ))}
+            {isFetched
+              ? characters.map((character) => (
+                  <CharacterListItem
+                    character={character}
+                    key={character.name}
+                  />
+                ))
+              : Array.from({ length: 10 }, (_, i) => i).map((placeholder) => (
+                  <LoadingListItem key={placeholder} />
+                ))}
           </ul>
         </div>
         <Pagination
