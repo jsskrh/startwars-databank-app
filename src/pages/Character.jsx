@@ -18,8 +18,8 @@ const style = {
   infoBox: `border`,
   wrapper: `p-5`,
   infoBoxHeader: `font-bold leading-10 mb-2`,
-  infoText: `mb-2 font-russo text-lg`,
-  fetchedText: `capitalize ml-2`,
+  infoText: `mb-2 font-russo text-lg flex flex-nowrap`,
+  fetchedText: `capitalize ml-2 flex align-center flex-1`,
 };
 
 const Character = () => {
@@ -36,6 +36,11 @@ const Character = () => {
   const [species, setSpecies] = useState([]);
   const [starships, setStarships] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+  const [filmsFetched, setFilmsFetched] = useState(false);
+  const [homeworldFetched, setHomeworldFetched] = useState(false);
+  const [speciesFetched, setSpeciesFetched] = useState(false);
+  const [starshipsFetched, setStarshipsFetched] = useState(false);
+  const [vehiclesFetched, setVehiclesFetched] = useState(false);
 
   const addFavHandler = () => {
     const exists = favourites.find((char) => char.name === character.name);
@@ -50,49 +55,36 @@ const Character = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataArray = async (charArr, setter, fetchedSetter) => {
       try {
-        let filmArr = [];
-        character.films.forEach(async (film) => {
-          const response = await fetch(film);
-          const fetchedData = await response.json();
-          filmArr.push(await fetchedData);
+        const promises = charArr.map(async (link) => {
+          const response = await fetch(link);
+          return response.json();
         });
-        setFilms(filmArr);
+        const arrData = await Promise.all(promises);
+        setter(arrData);
+        fetchedSetter(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-        let speciesArr = [];
-        character.species.forEach(async (specie) => {
-          const response = await fetch(specie);
-          const fetchedData = await response.json();
-          speciesArr.push(await fetchedData);
-        });
-        setSpecies(speciesArr);
-
-        let starshipsArr = [];
-        character.starships.forEach(async (starship) => {
-          const response = await fetch(starship);
-          const fetchedData = await response.json();
-          starshipsArr.push(await fetchedData);
-        });
-        setStarships(starshipsArr);
-
-        let vehiclesArr = [];
-        character.vehicles.forEach(async (vehicle) => {
-          const response = await fetch(vehicle);
-          const fetchedData = await response.json();
-          vehiclesArr.push(await fetchedData);
-        });
-        setVehicles(vehiclesArr);
-
+    const fetchHomeworldData = async () => {
+      try {
         const homeworldResponse = await fetch(character.homeworld);
         const homeworldData = await homeworldResponse.json();
+        setHomeworldFetched(true);
         setHomeworld(await homeworldData.name);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchData();
+    fetchHomeworldData();
+    fetchDataArray(character.films, setFilms, setFilmsFetched);
+    fetchDataArray(character.species, setSpecies, setSpeciesFetched);
+    fetchDataArray(character.starships, setStarships, setStarshipsFetched);
+    fetchDataArray(character.vehicles, setVehicles, setVehiclesFetched);
   }, [character]);
 
   return (
@@ -111,7 +103,6 @@ const Character = () => {
                 { criteria: "Skin Color", data: character.skin_color },
                 { criteria: "Eye Color", data: character.eye_color },
                 { criteria: "Birth Year", data: character.birth_year },
-                { criteria: "Homeworld", data: homeworld },
               ].map((info) => (
                 <InfoText
                   style={style}
@@ -120,20 +111,48 @@ const Character = () => {
                   key={info.criteria}
                 />
               ))}
+              <InfoText
+                style={style}
+                criteria="Homeworld"
+                data={homeworld}
+                homeworldFetched={homeworldFetched}
+              />
             </div>
           </div>
 
           {[
-            { name: "Species", array: species },
-            { name: "Starships", array: starships },
-            { name: "Vehicles", array: vehicles },
-            { name: "Films", array: films },
+            {
+              name: "Species",
+              array: species,
+              setter: speciesFetched,
+              isAvailable: character.species.length === 0 ? false : true,
+            },
+            {
+              name: "Starships",
+              array: starships,
+              setter: starshipsFetched,
+              isAvailable: character.starships.length === 0 ? false : true,
+            },
+            {
+              name: "Vehicles",
+              array: vehicles,
+              setter: vehiclesFetched,
+              isAvailable: character.vehicles.length === 0 ? false : true,
+            },
+            {
+              name: "Films",
+              array: films,
+              setter: filmsFetched,
+              isAvailable: character.films.length === 0 ? false : true,
+            },
           ].map((category) => (
             <InfoBox
               style={style}
               array={category.array}
               title={category.name}
               key={category.name}
+              isFetched={category.setter}
+              isAvailable={category.isAvailable}
             />
           ))}
         </div>
